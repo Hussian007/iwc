@@ -27,8 +27,8 @@ jobs:
         os: [macos-15, macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Put Homebrew on PATH (Linux)
@@ -52,15 +52,17 @@ jobs:
         os: [macos-15, ubuntu-24.04, ubuntu-24.04-arm]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: curl … install.sh | sh
         env:
           IWC_VERSION: ${{ inputs.version || github.event.release.tag_name }}
         run: |
+          set -o pipefail
           curl -fsSL https://github.com/${{ github.repository }}/releases/latest/download/install.sh | sh
+          "$HOME/.iwc/bin/iwc" --version
           echo "$HOME/.iwc/bin" >> "$GITHUB_PATH"
       - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
 
@@ -68,8 +70,8 @@ jobs:
     name: Scoop · windows
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: scoop install iwc/iwc
@@ -91,8 +93,8 @@ jobs:
         os: [windows-latest, windows-11-arm]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: irm … install.ps1 | iex
@@ -101,5 +103,6 @@ jobs:
           IWC_VERSION: ${{ inputs.version || github.event.release.tag_name }}
         run: |
           irm https://github.com/${{ github.repository }}/releases/latest/download/install.ps1 | iex
+          & "$env:LOCALAPPDATA\iwc\bin\iwc.exe" --version
           Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\iwc\bin"
       - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
