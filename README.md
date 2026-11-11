@@ -37,8 +37,11 @@ Then check it:
 
 ```sh
 iwc --version
+iwc about          # framework, release dates, environment and links
 iwc doctor
 ```
+
+After a successful install, the installers (and Homebrew and Scoop) print a short welcome confirming the version and showing how to start.
 
 ## Get started
 

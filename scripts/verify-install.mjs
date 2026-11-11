@@ -41,6 +41,27 @@ ok('iwc --version', version);
 if (!sh('iwc', ['--help']).includes('iwc create')) fail('iwc --help', 'usage does not list iwc create');
 ok('iwc --help');
 
+// iwc about works from any folder (no project) and agrees with GitHub Releases.
+const about = sh('iwc', ['about'], os.tmpdir());
+for (const want of ['IWC Framework', 'IonicWebCreator Private Limited', 'First release', 'Latest stable']) {
+  if (!about.includes(want)) fail('iwc about', `missing "${want}"\n${about}`);
+}
+const info = JSON.parse(sh('iwc', ['about', '--json'], os.tmpdir()));
+const rel = info.releases;
+const published = JSON.parse(await (await fetch('https://api.github.com/repos/Hussian007/iwc/releases?per_page=100', { headers: { 'User-Agent': 'iwc-verify' } })).text());
+if (Array.isArray(published)) {
+  const stable = published.filter((r) => !r.draft && !r.prerelease);
+  const mine = published.find((r) => r.tag_name === `v${info.version}`);
+  const first = stable.reduce((a, r) => (!a || r.published_at < a.published_at ? r : a), null);
+  const same = (a, b) => a && b && new Date(a).getTime() === new Date(b).getTime();
+  if (!mine || !same(rel.installedPublishedAt, mine.published_at)) fail('iwc about --json', `installed date ${rel.installedPublishedAt} ≠ GitHub ${mine && mine.published_at}`);
+  if (!first || rel.firstVersion !== first.tag_name.slice(1) || !same(rel.firstPublishedAt, first.published_at)) fail('iwc about --json', `first release ${rel.firstVersion} ${rel.firstPublishedAt} ≠ GitHub ${first && first.tag_name} ${first && first.published_at}`);
+  if (info.channel !== 'stable' && !mine.prerelease) fail('iwc about --json', `channel ${info.channel}`);
+  ok('iwc about', `${info.version} published ${rel.installedPublishedAt}; first ${rel.firstVersion} ${rel.firstPublishedAt}; latest ${rel.latestVersion}`);
+} else {
+  ok('iwc about', `GitHub API unavailable here (${published.message || 'error'}); about printed ${rel.source || 'local information'}`);
+}
+
 // 2. The binary carries no path of the machine that built it.
 let real = which;
 try {
