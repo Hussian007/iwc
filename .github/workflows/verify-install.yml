@@ -1,0 +1,105 @@
+# Installs the published IWC CLI through every public channel on clean
+# GitHub-hosted machines and drives a new project with it
+# (scripts/verify-install.mjs). Nothing here builds IWC: it only uses what a
+# developer would download.
+name: Verify install
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release to verify (e.g. 0.1.0); empty = latest'
+        required: false
+  schedule:
+    - cron: '17 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  homebrew:
+    name: Homebrew · ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Put Homebrew on PATH (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          if [ ! -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+            NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          fi
+          echo "/home/linuxbrew/.linuxbrew/bin" >> "$GITHUB_PATH"
+      - name: brew install hussian007/iwc/iwc
+        run: |
+          brew install hussian007/iwc/iwc
+          brew test iwc
+      - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
+
+  script:
+    name: install.sh · ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: curl … install.sh | sh
+        env:
+          IWC_VERSION: ${{ inputs.version || github.event.release.tag_name }}
+        run: |
+          curl -fsSL https://github.com/${{ github.repository }}/releases/latest/download/install.sh | sh
+          echo "$HOME/.iwc/bin" >> "$GITHUB_PATH"
+      - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
+
+  scoop:
+    name: Scoop · windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: scoop install iwc/iwc
+        shell: pwsh
+        run: |
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          $shims = "$env:USERPROFILE\scoop\shims"
+          $env:Path = "$shims;$env:Path"
+          scoop bucket add iwc https://github.com/Hussian007/scoop-iwc
+          scoop install iwc/iwc
+          Add-Content $env:GITHUB_PATH $shims
+      - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
+
+  powershell:
+    name: install.ps1 · ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, windows-11-arm]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: irm … install.ps1 | iex
+        shell: pwsh
+        env:
+          IWC_VERSION: ${{ inputs.version || github.event.release.tag_name }}
+        run: |
+          irm https://github.com/${{ github.repository }}/releases/latest/download/install.ps1 | iex
+          Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\iwc\bin"
+      - run: node scripts/verify-install.mjs ${{ inputs.version || github.event.release.tag_name }}
