@@ -1,0 +1,36 @@
+{
+  "name": "Products",
+  "route": "/products",
+  "layout": "main.layout.iwc",
+  "title": "Products",
+  "sections": [
+    {
+      "type": "section", "className": "band", "layout": { "direction": "column", "gap": "20px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Products" },
+        {
+          "type": "row", "tag": "nav", "ariaLabel": "Filter", "layout": { "gap": "8px", "wrap": true },
+          "elements": [
+            { "type": "link", "label": "All", "target": "/products", "className": "chip" },
+            { "type": "link", "label": "Home", "target": "/products?kind=home", "className": "chip" },
+            { "type": "link", "label": "Office", "target": "/products?kind=office", "className": "chip" }
+          ]
+        },
+        {
+          "type": "grid", "columns": 3, "responsiveColumns": { "tablet": 2, "mobile": 1 }, "gap": "20px",
+          "data": {
+            "source": "DATABASE.products",
+            "columns": ["name", "slug", "price", "image"],
+            "filter": { "kind": { "query": "kind" } },
+            "search": { "param": "q", "fields": ["name", "description"] },
+            "sort": { "field": "name", "order": "asc" },
+            "paginate": { "param": "page", "size": 6 }
+          },
+          "item": { "type": "component", "use": "product-card.component.iwc", "props": { "product": { "bind": "item" } } },
+          "empty": { "type": "text", "content": "Nothing matches your search." },
+          "error": { "type": "text", "content": "The catalogue is unavailable right now." }
+        }
+      ]
+    }
+  ]
+}

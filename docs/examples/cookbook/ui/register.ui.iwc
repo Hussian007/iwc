@@ -1,0 +1,24 @@
+{
+  "name": "Register",
+  "route": "/register",
+  "layout": "auth.layout.iwc",
+  "title": "Create an account",
+  "sections": [
+    {
+      "type": "column", "className": "auth-card", "layout": { "direction": "column", "gap": "14px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Create an account" },
+        {
+          "type": "form",
+          "inputs": [
+            { "name": "name", "type": "text", "label": "Name", "required": true, "autocomplete": "name" },
+            { "name": "email", "type": "email", "label": "Email", "required": true, "autocomplete": "email" },
+            { "name": "password", "type": "password", "label": "Password (8+ characters)", "required": true, "autocomplete": "new-password" }
+          ],
+          "submit": { "api": "register.api.iwc", "label": "Create account", "success": { "navigate": "/dashboard" } }
+        },
+        { "type": "link", "label": "Already registered? Sign in", "target": "/login" }
+      ]
+    }
+  ]
+}

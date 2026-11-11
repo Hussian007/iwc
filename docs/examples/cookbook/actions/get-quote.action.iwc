@@ -1,0 +1,8 @@
+{
+  "name": "GetQuote",
+  "input": { "topic": { "type": "string", "default": "craft" } },
+  "steps": [
+    { "operation": "call", "service": "quotes.service.iwc", "method": "today", "input": { "topic": "=input.topic" }, "as": "q" },
+    { "operation": "return", "value": { "text": "=q.text", "author": "=q.author", "topic": "=input.topic" } }
+  ]
+}

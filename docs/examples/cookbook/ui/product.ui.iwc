@@ -1,0 +1,49 @@
+{
+  "name": "Product",
+  "route": "/products/:slug",
+  "layout": "main.layout.iwc",
+  "title": "Product",
+  "sections": [
+    {
+      "type": "section", "className": "band",
+      "layout": { "direction": "row", "gap": "40px", "align": "start" },
+      "responsive": { "tablet": { "flexDirection": "column" } },
+      "data": {
+        "source": "DATABASE.products", "mode": "single",
+        "columns": ["name", "slug", "description", "price", "stock", "image", "kind"],
+        "filter": { "slug": { "param": "slug" } }
+      },
+      "elements": [
+        {
+          "type": "carousel", "className": "gallery",
+          "elements": [
+            { "type": "image", "binds": { "source": "image", "alt": "name" }, "ratio": "1/1", "fit": "contain" },
+            { "type": "image", "source": "/assets/logo.svg", "alt": "Brand mark", "ratio": "1/1", "fit": "contain" }
+          ]
+        },
+        {
+          "type": "column", "layout": { "direction": "column", "gap": "12px" }, "className": "grow",
+          "elements": [
+            { "type": "link", "label": "← All products", "target": "/products" },
+            { "type": "text", "variant": "h1", "bind": "name" },
+            { "type": "text", "variant": "subheading", "bind": "price", "format": "currency", "currency": "USD" },
+            { "type": "text", "bind": "description" },
+            { "type": "badge", "bind": "stock", "prefix": "In stock: " },
+            {
+              "type": "button", "label": "Add to cart", "action": "state", "store": "cart", "mutation": "add",
+              "value": { "id": "item.id", "slug": "item.slug", "name": "item.name", "price": "item.price", "image": "item.image", "quantity": 1 }
+            },
+            {
+              "type": "tabs",
+              "tabs": [
+                { "label": "Details", "elements": [{ "type": "text", "bind": "kind", "prefix": "Collection: " }] },
+                { "label": "Shipping", "elements": [{ "type": "text", "content": "Ships in 2 days. Free returns for 30 days." }] }
+              ]
+            }
+          ]
+        }
+      ],
+      "empty": { "type": "text", "variant": "h2", "content": "That product does not exist." }
+    }
+  ]
+}

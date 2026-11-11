@@ -1,0 +1,30 @@
+{
+  "name": "Checkout",
+  "route": "/checkout",
+  "layout": "main.layout.iwc",
+  "auth": "required",
+  "title": "Checkout",
+  "sections": [
+    {
+      "type": "section", "className": "band narrow", "layout": { "direction": "column", "gap": "16px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Checkout" },
+        { "type": "text", "variant": "subheading", "bind": "state.cart.total", "format": "currency", "currency": "USD", "prefix": "Order total: " },
+        {
+          "type": "form",
+          "inputs": [
+            { "name": "email", "type": "email", "label": "Receipt email", "required": true, "autocomplete": "email" },
+            { "name": "address", "type": "textarea", "label": "Delivery address", "required": true, "autocomplete": "street-address" },
+            { "name": "terms", "type": "checkbox", "label": "I accept the terms", "required": true }
+          ],
+          "submit": {
+            "api": "order.api.iwc",
+            "label": "Place order",
+            "include": ["STATE.cart.items"],
+            "success": { "mutation": "cart.clear", "navigate": "/order-placed" }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Cookbook",
+  "iwc": 1,
+  "description": "Every example from the IWC developer guide, in one project.",
+  "theme": {
+    "tokens": {
+      "color-primary": "#4338ca",
+      "color-on-primary": "#ffffff",
+      "color-text": "#111827",
+      "color-muted": "#6b7280",
+      "color-background": "#ffffff",
+      "color-surface": "#f4f4f8",
+      "color-border": "#e5e7eb",
+      "radius": "12px",
+      "font-body": "Inter, system-ui, sans-serif",
+      "font-heading": "Inter, system-ui, sans-serif"
+    },
+    "dark": { "color-text": "#f3f4f6", "color-background": "#111318", "color-surface": "#1b1e26", "color-border": "#2c303a", "color-muted": "#9ca3af" },
+    "fonts": [{ "family": "Inter", "google": true, "weights": [400, 600, 800] }]
+  },
+  "breakpoints": { "mobile": 640, "tablet": 1024 },
+  "styles": ["styles/main.css"],
+  "head": { "title": "%s · Cookbook", "description": "IWC examples", "favicon": "/assets/logo.svg", "lang": "en" },
+  "auth": { "user": "user.schema.iwc", "defaultRole": "member", "loginPage": "/login", "session": { "ttl": "7d" } },
+  "notFound": "not-found.ui.iwc"
+}

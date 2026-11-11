@@ -1,0 +1,23 @@
+{
+  "name": "placeOrder",
+  "method": "POST",
+  "path": "/orders",
+  "action": "place-order.action.iwc",
+  "request": {
+    "payload": {
+      "items": {
+        "type": "array", "required": true, "minItems": 1, "maxItems": 20,
+        "items": { "type": "object", "fields": {
+          "id": { "type": "string", "required": true },
+          "quantity": { "type": "integer", "required": true, "min": 1, "max": 10 },
+          "name": { "type": "string" }, "price": { "type": "number" }, "image": { "type": "string" }, "slug": { "type": "string" }
+        } }
+      },
+      "email": { "type": "email", "required": true },
+      "address": { "type": "string", "required": true, "minLength": 5, "maxLength": 200 },
+      "terms": { "type": "boolean", "required": true }
+    }
+  },
+  "response": { "status": 201, "fields": { "orderId": "string", "total": "number" } },
+  "security": { "auth": true, "rateLimit": "10/1m" }
+}

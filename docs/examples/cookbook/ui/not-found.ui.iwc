@@ -1,0 +1,16 @@
+{
+  "name": "Not found",
+  "route": "/404",
+  "layout": "main.layout.iwc",
+  "title": "Page not found",
+  "sections": [
+    {
+      "type": "section", "className": "band narrow", "layout": { "direction": "column", "align": "center", "gap": "12px" },
+      "elements": [
+        { "type": "text", "variant": "title", "content": "404" },
+        { "type": "text", "content": "There is no page at this address." },
+        { "type": "button", "label": "Go home", "action": "navigate", "target": "/" }
+      ]
+    }
+  ]
+}

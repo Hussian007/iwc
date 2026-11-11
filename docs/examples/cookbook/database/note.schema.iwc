@@ -1,0 +1,36 @@
+{
+  "name": "note",
+  "fields": {
+    "author": {
+      "type": "relation",
+      "to": "user.schema.iwc",
+      "required": true,
+      "onDelete": "cascade"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 2000
+    }
+  },
+  "owner": "author",
+  "access": {
+    "read": "owner",
+    "create": "auth",
+    "update": "owner",
+    "delete": "owner"
+  },
+  "seed": [
+    {
+      "id": "n-welcome",
+      "author": "u-ada",
+      "title": "Welcome",
+      "body": "Edit me at /notes/n-welcome."
+    }
+  ]
+}

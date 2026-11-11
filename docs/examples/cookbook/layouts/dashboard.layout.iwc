@@ -1,0 +1,23 @@
+{
+  "name": "DashboardLayout",
+  "slots": {
+    "header": "header.component.iwc",
+    "sidebar": {
+      "type": "nav",
+      "className": "side-nav",
+      "items": [
+        { "label": "Overview", "target": "/dashboard" },
+        { "label": "Products", "target": "/products" },
+        { "label": "API demo", "target": "/api-demo" }
+      ]
+    },
+    "content": "PAGE_CONTENT"
+  },
+  "template": ["header header", "sidebar content"],
+  "structure": {
+    "header": { "position": "sticky" },
+    "sidebar": { "width": "220px", "mobile": "hidden" }
+  },
+  "style": { "gridTemplateColumns": "220px 1fr", "minHeight": "100vh" },
+  "className": "dash-shell"
+}

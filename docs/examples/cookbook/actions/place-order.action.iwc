@@ -1,0 +1,31 @@
+{
+  "name": "PlaceOrder",
+  "description": "Prices come from the database, never from the browser. Stock is checked and decremented in one transaction.",
+  "auth": "required",
+  "transaction": true,
+  "input": {
+    "items": { "type": "array", "required": true, "minItems": 1, "items": { "type": "object", "fields": {
+      "id": { "type": "string", "required": true }, "quantity": { "type": "integer", "required": true, "min": 1 },
+      "name": { "type": "string" }, "price": { "type": "number" }, "image": { "type": "string" }, "slug": { "type": "string" }
+    } } },
+    "email": { "type": "email", "required": true },
+    "address": { "type": "string", "required": true },
+    "terms": { "type": "boolean", "required": true }
+  },
+  "steps": [
+    { "operation": "require", "condition": "input.terms == true", "status": 422, "error": "Please accept the terms" },
+    { "operation": "set", "as": "lines", "value": [] },
+    {
+      "operation": "forEach", "items": "input.items", "as": "line",
+      "steps": [
+        { "operation": "find", "resource": "product.schema.iwc", "where": { "id": "=line.id" }, "as": "product", "required": true, "error": "A product in your cart no longer exists" },
+        { "operation": "require", "condition": "product.stock >= line.quantity", "status": 409, "error": "=concat('Only ', product.stock, ' left of ', product.name)" },
+        { "operation": "update", "resource": "product.schema.iwc", "where": { "id": "=product.id", "stock": { "gte": "=line.quantity" } }, "increment": { "stock": "=-line.quantity" }, "expect": 1 },
+        { "operation": "set", "as": "lines", "append": { "productId": "=product.id", "name": "=product.name", "price": "=product.price", "quantity": "=line.quantity" } }
+      ]
+    },
+    { "operation": "set", "as": "total", "value": "round(sum(lines, price * quantity), 2)" },
+    { "operation": "create", "resource": "order.schema.iwc", "as": "order", "values": { "items": "=lines", "total": "=total", "email": "=input.email", "address": "=input.address" } },
+    { "operation": "return", "value": { "orderId": "=order.id", "total": "=total" } }
+  ]
+}

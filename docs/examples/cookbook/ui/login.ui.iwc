@@ -1,0 +1,23 @@
+{
+  "name": "Login",
+  "route": "/login",
+  "layout": "auth.layout.iwc",
+  "title": "Sign in",
+  "sections": [
+    {
+      "type": "column", "className": "auth-card", "layout": { "direction": "column", "gap": "14px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Sign in" },
+        {
+          "type": "form",
+          "inputs": [
+            { "name": "email", "type": "email", "label": "Email", "required": true, "autocomplete": "email" },
+            { "name": "password", "type": "password", "label": "Password", "required": true, "autocomplete": "current-password" }
+          ],
+          "submit": { "api": "login.api.iwc", "label": "Sign in", "success": { "navigate": "/dashboard" } }
+        },
+        { "type": "link", "label": "No account? Register", "target": "/register" }
+      ]
+    }
+  ]
+}

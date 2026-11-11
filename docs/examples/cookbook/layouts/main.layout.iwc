@@ -1,0 +1,9 @@
+{
+  "name": "MainLayout",
+  "slots": {
+    "header": "header.component.iwc",
+    "content": "PAGE_CONTENT",
+    "footer": "footer.component.iwc"
+  },
+  "structure": { "header": { "position": "sticky" } }
+}

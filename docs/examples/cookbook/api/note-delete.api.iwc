@@ -1,0 +1,8 @@
+{
+  "name": "deleteNote",
+  "method": "DELETE",
+  "path": "/notes/:id",
+  "operation": "db.delete",
+  "resource": "note.schema.iwc",
+  "security": { "auth": true }
+}

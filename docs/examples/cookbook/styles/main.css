@@ -1,0 +1,28 @@
+.site-header { padding: 14px 5vw; border-bottom: 1px solid var(--color-border); background: var(--color-background); }
+.site-header .iwc-navbar-links { order: 2; }
+.header-actions { order: 3; margin-left: auto; }
+.brand { font-weight: 800; text-decoration: none; color: inherit; }
+.cart-link { display: inline-flex; gap: 4px; align-items: center; color: inherit; text-decoration: none; }
+.count:empty::before { content: "0"; }
+.hero { padding: 96px 24px; text-align: center; background: var(--color-surface); }
+.lede { max-width: 560px; color: var(--color-muted); font-size: 1.15rem; }
+.band { padding: 64px 5vw; }
+.band-surface { background: var(--color-surface); }
+.narrow { max-width: 760px; margin: 0 auto; }
+.feature .iwc-icon { width: 28px; height: 28px; color: var(--color-primary); }
+.chip { padding: 6px 14px; border: 1px solid var(--color-border); border-radius: 999px; text-decoration: none; color: inherit; }
+.product-card .iwc-card-media { background: var(--color-surface); padding: 16px; }
+.product-card .iwc-card-actions { padding: 0 16px 16px; }
+.gallery { width: min(100%, 420px); flex: none; }
+.line { border-bottom: 1px solid var(--color-border); padding: 8px 0; }
+.thumb { width: 48px; height: 48px; border-radius: 8px; }
+.grow { flex: 1; }
+.muted { color: var(--color-muted); }
+.panel { padding: 20px; border: 1px solid var(--color-border); border-radius: var(--radius); }
+.stat { padding: 16px; background: var(--color-surface); border-radius: var(--radius); }
+.dash { padding: 32px 5vw; }
+.side-nav { display: flex; flex-direction: column; gap: 4px; padding: 24px 16px; border-right: 1px solid var(--color-border); }
+.side-nav a { padding: 8px 12px; border-radius: 8px; text-decoration: none; color: inherit; }
+.auth-shell { min-height: 100vh; align-items: center; justify-content: center; gap: 20px; background: var(--color-surface); }
+.auth-card { width: min(100%, 400px); padding: 32px; background: var(--color-background); border-radius: var(--radius); }
+.site-footer { padding: 40px 5vw; color: var(--color-muted); text-align: center; }

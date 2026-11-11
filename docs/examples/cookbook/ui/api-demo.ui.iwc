@@ -1,0 +1,41 @@
+{
+  "name": "API demo",
+  "route": "/api-demo",
+  "layout": "main.layout.iwc",
+  "title": "API-connected page",
+  "sections": [
+    {
+      "type": "section", "className": "band", "layout": { "direction": "column", "gap": "20px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Data from APIs" },
+        {
+          "type": "column", "className": "panel",
+          "data": { "source": "API.quote", "mode": "single", "query": { "topic": { "query": "topic" } } },
+          "elements": [
+            { "type": "text", "variant": "quote", "bind": "text" },
+            { "type": "text", "variant": "caption", "bind": "author", "prefix": "— " }
+          ],
+          "error": { "type": "text", "content": "The quote service is unavailable." }
+        },
+        {
+          "type": "row", "layout": { "gap": "8px" },
+          "elements": [
+            { "type": "link", "label": "Craft quote", "target": "/api-demo?topic=craft", "className": "chip" },
+            { "type": "link", "label": "Design quote", "target": "/api-demo?topic=design", "className": "chip" }
+          ]
+        },
+        { "type": "text", "variant": "h2", "content": "Most expensive first" },
+        {
+          "type": "table",
+          "data": { "source": "API.products", "query": { "sort": "-price", "limit": "3" } },
+          "cells": [
+            { "field": "name", "label": "Product" },
+            { "field": "price", "label": "Price", "format": "currency" }
+          ],
+          "error": { "type": "text", "content": "Could not load products." }
+        },
+        { "type": "link", "label": "Raw JSON: /api/products?sort=-price", "target": "/api/products?sort=-price", "newTab": true }
+      ]
+    }
+  ]
+}

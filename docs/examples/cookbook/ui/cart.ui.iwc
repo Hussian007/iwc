@@ -1,0 +1,33 @@
+{
+  "name": "Cart",
+  "route": "/cart",
+  "layout": "main.layout.iwc",
+  "title": "Cart",
+  "sections": [
+    {
+      "type": "section", "className": "band narrow", "layout": { "direction": "column", "gap": "12px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Your cart" },
+        {
+          "type": "stack", "layout": { "direction": "column", "gap": "8px" },
+          "data": { "source": "STATE.cart.items" },
+          "item": {
+            "type": "row", "className": "line", "layout": { "align": "center", "gap": "12px" },
+            "elements": [
+              { "type": "image", "binds": { "source": "image", "alt": "name" }, "className": "thumb" },
+              { "type": "link", "bind": "name", "target": "/products/:slug", "className": "grow" },
+              { "type": "button", "variant": "ghost", "ariaLabel": "One fewer", "action": "state", "store": "cart", "mutation": "add", "value": { "id": "item.id", "quantity": -1 }, "elements": [{ "type": "icon", "name": "minus" }] },
+              { "type": "text", "variant": "label", "bind": "quantity" },
+              { "type": "button", "variant": "ghost", "ariaLabel": "One more", "action": "state", "store": "cart", "mutation": "add", "value": { "id": "item.id", "quantity": 1 }, "elements": [{ "type": "icon", "name": "plus" }] },
+              { "type": "text", "variant": "label", "bind": "price", "format": "currency", "currency": "USD" },
+              { "type": "button", "label": "Remove", "variant": "ghost", "action": "state", "store": "cart", "mutation": "remove", "value": "item.id" }
+            ]
+          },
+          "empty": { "type": "text", "content": "Your cart is empty." }
+        },
+        { "type": "text", "variant": "subheading", "bind": "state.cart.total", "format": "currency", "currency": "USD", "prefix": "Subtotal: " },
+        { "type": "button", "label": "Checkout", "action": "navigate", "target": "/checkout" }
+      ]
+    }
+  ]
+}

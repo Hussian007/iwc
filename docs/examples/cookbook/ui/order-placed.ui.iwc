@@ -1,0 +1,24 @@
+{
+  "name": "Order placed",
+  "route": "/order-placed",
+  "layout": "main.layout.iwc",
+  "auth": "required",
+  "title": "Thank you",
+  "sections": [
+    {
+      "type": "section", "className": "band narrow",
+      "elements": [
+        { "type": "text", "variant": "h1", "content": "Thank you!" },
+        {
+          "type": "table",
+          "data": { "source": "DATABASE.orders", "columns": ["total", "status", "createdAt"], "filter": { "customer": { "user": "id" } }, "sort": { "field": "createdAt", "order": "desc" }, "limit": 5 },
+          "cells": [
+            { "field": "createdAt", "label": "Placed", "format": "date" },
+            { "field": "status", "label": "Status" },
+            { "field": "total", "label": "Total", "format": "currency" }
+          ]
+        }
+      ]
+    }
+  ]
+}

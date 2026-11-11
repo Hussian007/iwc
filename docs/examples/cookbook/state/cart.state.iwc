@@ -1,0 +1,14 @@
+{
+  "name": "cart",
+  "persist": "local",
+  "initial": { "items": [] },
+  "mutations": {
+    "add": { "op": "upsert", "path": "items", "key": "id", "count": "quantity" },
+    "remove": { "op": "remove", "path": "items", "key": "id" },
+    "clear": { "op": "clear", "path": "items" }
+  },
+  "derived": {
+    "count": { "sum": "items", "field": "quantity" },
+    "total": { "sum": "items", "multiply": ["price", "quantity"] }
+  }
+}

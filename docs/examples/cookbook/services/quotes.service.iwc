@@ -1,0 +1,12 @@
+{
+  "name": "Quotes",
+  "provider": "simulated",
+  "methods": {
+    "today": {
+      "respond": {
+        "text": "=if(input.topic == 'design', 'Design is not just what it looks like. Design is how it works.', 'The details are not the details. They make the design.')",
+        "author": "=if(input.topic == 'design', 'Steve Jobs', 'Charles Eames')"
+      }
+    }
+  }
+}

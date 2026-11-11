@@ -1,0 +1,15 @@
+{
+  "name": "register",
+  "method": "POST",
+  "path": "/auth/register",
+  "operation": "auth.register",
+  "request": {
+    "payload": {
+      "name": { "type": "string", "required": true, "minLength": 2, "maxLength": 80 },
+      "email": { "type": "email", "required": true },
+      "password": { "type": "string", "required": true, "minLength": 8, "maxLength": 200 }
+    }
+  },
+  "response": { "status": 201, "fields": { "success": "boolean", "user": "object" } },
+  "security": { "rateLimit": true }
+}

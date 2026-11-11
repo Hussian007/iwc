@@ -1,0 +1,20 @@
+{
+  "name": "product",
+  "fields": {
+    "name": { "type": "string", "required": true, "maxLength": 120 },
+    "slug": { "type": "string", "required": true, "unique": true, "pattern": "^[a-z0-9-]+$" },
+    "description": { "type": "text", "maxLength": 2000 },
+    "price": { "type": "number", "required": true, "min": 0 },
+    "stock": { "type": "integer", "required": true, "min": 0, "default": 0 },
+    "image": { "type": "string" },
+    "kind": { "type": "enum", "values": ["home", "office"], "required": true, "index": true },
+    "featured": { "type": "boolean", "default": false }
+  },
+  "access": { "read": "public", "create": ["admin"], "update": ["admin"], "delete": ["admin"] },
+  "seed": [
+    { "id": "p-mug", "name": "Stoneware Mug", "slug": "stoneware-mug", "description": "Holds 350ml. Dishwasher safe.", "price": 18, "stock": 40, "image": "/assets/mug.svg", "kind": "home", "featured": true },
+    { "id": "p-tote", "name": "Canvas Tote", "slug": "canvas-tote", "description": "Heavy cotton with a long strap.", "price": 24, "stock": 25, "image": "/assets/tote.svg", "kind": "home", "featured": true },
+    { "id": "p-lamp", "name": "Desk Lamp", "slug": "desk-lamp", "description": "Warm LED, three brightness levels.", "price": 59, "stock": 8, "image": "/assets/lamp.svg", "kind": "office", "featured": true },
+    { "id": "p-note", "name": "Dot Notebook", "slug": "dot-notebook", "description": "A5, 160 pages.", "price": 12, "stock": 100, "image": "/assets/notebook.svg", "kind": "office" }
+  ]
+}

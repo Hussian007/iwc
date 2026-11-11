@@ -1,0 +1,20 @@
+{
+  "name": "products",
+  "method": "GET",
+  "path": "/products",
+  "description": "Public catalogue: ?kind=home, ?featured=true, ?sort=-price, ?q=lamp, ?page=2, ?limit=10",
+  "operation": "db.list",
+  "resource": "product.schema.iwc",
+  "request": {
+    "query": {
+      "kind": { "type": "string", "enum": ["home", "office"] },
+      "featured": { "type": "boolean" },
+      "sort": { "type": "string", "enum": ["name", "price", "-price"] },
+      "q": { "type": "string", "maxLength": 60 },
+      "page": { "type": "integer", "min": 1 },
+      "limit": { "type": "integer", "min": 1, "max": 50 }
+    }
+  },
+  "response": { "type": "list", "fields": { "id": "string", "name": "string", "slug": "string", "price": "number", "image": "string" } },
+  "cache": "10s"
+}

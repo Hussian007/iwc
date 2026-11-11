@@ -1,0 +1,431 @@
+{
+  "name": "cookbook",
+  "cases": [
+    {
+      "name": "landing page",
+      "request": {
+        "path": "/"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Ship websites as data.",
+          "Why teams use it",
+          "Stoneware Mug",
+          "Priya, CTO"
+        ]
+      }
+    },
+    {
+      "name": "product listing filters by ?kind",
+      "request": {
+        "path": "/products?kind=office"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Desk Lamp",
+          "Dot Notebook"
+        ],
+        "excludes": [
+          "Canvas Tote"
+        ]
+      }
+    },
+    {
+      "name": "product listing without ?kind shows everything",
+      "request": {
+        "path": "/products"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Desk Lamp",
+          "Canvas Tote"
+        ]
+      }
+    },
+    {
+      "name": "product listing search",
+      "request": {
+        "path": "/products?q=mug"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Stoneware Mug"
+        ],
+        "excludes": [
+          "Desk Lamp"
+        ]
+      }
+    },
+    {
+      "name": "product details by slug",
+      "request": {
+        "path": "/products/desk-lamp"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Desk Lamp",
+          "$59.00",
+          "In stock: 8",
+          "Collection: office"
+        ]
+      }
+    },
+    {
+      "name": "unknown product shows the empty state",
+      "request": {
+        "path": "/products/nope"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "That product does not exist."
+        ]
+      }
+    },
+    {
+      "name": "cart renders a client-side template",
+      "request": {
+        "path": "/cart"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "data-iwc-state-list=\"cart.items\"",
+          "Your cart is empty."
+        ]
+      }
+    },
+    {
+      "name": "API-connected page reads two APIs",
+      "request": {
+        "path": "/api-demo?topic=design"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Steve Jobs",
+          "Desk Lamp",
+          "$59.00"
+        ]
+      }
+    },
+    {
+      "name": "products API sorts and validates",
+      "request": {
+        "path": "/api/products?sort=-price&limit=1"
+      },
+      "expect": {
+        "status": 200,
+        "body": {
+          "items": [
+            {
+              "name": "Desk Lamp"
+            }
+          ],
+          "total": 4
+        }
+      }
+    },
+    {
+      "name": "products API rejects bad query values",
+      "request": {
+        "path": "/api/products?kind=garden"
+      },
+      "expect": {
+        "status": 422
+      }
+    },
+    {
+      "name": "unknown pages use the 404 screen",
+      "request": {
+        "path": "/missing"
+      },
+      "expect": {
+        "status": 404,
+        "contains": [
+          "There is no page at this address."
+        ]
+      }
+    },
+    {
+      "name": "dashboard requires sign-in",
+      "request": {
+        "path": "/dashboard"
+      },
+      "expect": {
+        "status": 303
+      }
+    },
+    {
+      "name": "register validates",
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/register",
+        "body": {
+          "name": "B",
+          "email": "bad",
+          "password": "short"
+        }
+      },
+      "expect": {
+        "status": 422,
+        "body": {
+          "error": {
+            "fields": {
+              "name": "*",
+              "email": "*",
+              "password": "*"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "register creates an account",
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/register",
+        "body": {
+          "name": "Grace",
+          "email": "grace@example.com",
+          "password": "grace-pass-123"
+        }
+      },
+      "expect": {
+        "status": 201,
+        "body": {
+          "success": true,
+          "user": {
+            "name": "Grace",
+            "role": "member"
+          }
+        },
+        "excludes": [
+          "grace-pass-123"
+        ]
+      }
+    },
+    {
+      "name": "notes are created for the signed-in user",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "method": "POST",
+        "path": "/api/notes",
+        "body": {
+          "title": "Buy milk"
+        }
+      },
+      "expect": {
+        "status": 201,
+        "body": {
+          "title": "Buy milk",
+          "id": "*"
+        }
+      }
+    },
+    {
+      "name": "the dashboard lists only your notes",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "path": "/dashboard"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Welcome, Grace",
+          "Buy milk"
+        ],
+        "excludes": [
+          "Stock by product"
+        ]
+      }
+    },
+    {
+      "name": "other users never see them",
+      "as": {
+        "email": "ada@example.com",
+        "password": "ada-pass-123"
+      },
+      "request": {
+        "path": "/dashboard"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "Stock by product",
+          "Welcome"
+        ],
+        "excludes": [
+          "Buy milk"
+        ]
+      }
+    },
+    {
+      "name": "checkout needs the terms",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "method": "POST",
+        "path": "/api/orders",
+        "body": {
+          "items": [
+            {
+              "id": "p-mug",
+              "quantity": 2
+            }
+          ],
+          "email": "grace@example.com",
+          "address": "1 Main Street",
+          "terms": false
+        }
+      },
+      "expect": {
+        "status": 422,
+        "body": {
+          "error": {
+            "message": "Please accept the terms"
+          }
+        }
+      }
+    },
+    {
+      "name": "checkout prices from the database",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "method": "POST",
+        "path": "/api/orders",
+        "body": {
+          "items": [
+            {
+              "id": "p-mug",
+              "quantity": 2,
+              "price": 0.01
+            }
+          ],
+          "email": "grace@example.com",
+          "address": "1 Main Street",
+          "terms": true
+        }
+      },
+      "expect": {
+        "status": 201,
+        "body": {
+          "total": 36,
+          "orderId": "*"
+        }
+      }
+    },
+    {
+      "name": "checkout refuses more than the stock",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "method": "POST",
+        "path": "/api/orders",
+        "body": {
+          "items": [
+            {
+              "id": "p-lamp",
+              "quantity": 9
+            }
+          ],
+          "email": "grace@example.com",
+          "address": "1 Main Street",
+          "terms": true
+        }
+      },
+      "expect": {
+        "status": 409,
+        "body": {
+          "error": {
+            "message": "Only 8 left of Desk Lamp"
+          }
+        }
+      }
+    },
+    {
+      "name": "stock was decremented",
+      "request": {
+        "path": "/products/stoneware-mug"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "In stock: 38"
+        ]
+      }
+    },
+    {
+      "name": "edit form is prefilled and posts to its own record",
+      "as": {
+        "email": "ada@example.com",
+        "password": "ada-pass-123"
+      },
+      "request": {
+        "path": "/notes/n-welcome"
+      },
+      "expect": {
+        "status": 200,
+        "contains": [
+          "action=\"/api/notes/n-welcome\"",
+          "value=\"Welcome\""
+        ]
+      }
+    },
+    {
+      "name": "the owner can update the note",
+      "as": {
+        "email": "ada@example.com",
+        "password": "ada-pass-123"
+      },
+      "request": {
+        "method": "PATCH",
+        "path": "/api/notes/n-welcome",
+        "body": {
+          "title": "Welcome back"
+        }
+      },
+      "expect": {
+        "status": 200,
+        "body": {
+          "title": "Welcome back"
+        }
+      }
+    },
+    {
+      "name": "someone else cannot",
+      "as": {
+        "email": "grace@example.com",
+        "password": "grace-pass-123"
+      },
+      "request": {
+        "method": "PATCH",
+        "path": "/api/notes/n-welcome",
+        "body": {
+          "title": "Hijacked"
+        }
+      },
+      "expect": {
+        "status": 404
+      }
+    }
+  ]
+}

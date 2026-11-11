@@ -1,0 +1,2552 @@
+{
+  "$defs": {
+    "element": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "action": {
+          "description": "share: the system share sheet (web: Web Share, else copies the link) for target (default: this page) with value as the message; install: the browser's install prompt (pwa; hidden until the app can be installed); notifications: ask for notification permission and send the push subscription to pwa.push; sync: open the list of changes waiting to sync (offline); pay: call api for a payment, open the provider's payment sheet in a native app (hosted checkout on the web) and check it with confirm; tracking: value \"start\"/\"stop\" background location (platforms.*.background.location); native: call your own Kotlin/Swift extension named by target (\"Scanner.scan\") with value, and post its result to api",
+          "enum": [
+            "navigate",
+            "open",
+            "close",
+            "toggle",
+            "submit",
+            "state",
+            "api",
+            "logout",
+            "scroll",
+            "share",
+            "install",
+            "notifications",
+            "sync",
+            "pay",
+            "tracking",
+            "native"
+          ],
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "animation": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "delay": {
+              "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+              "pattern": "^[0-9]+(ms|s|m|h|d)$",
+              "type": "string"
+            },
+            "duration": {
+              "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+              "pattern": "^[0-9]+(ms|s|m|h|d)$",
+              "type": "string"
+            },
+            "name": {
+              "enum": [
+                "fade",
+                "fade-up",
+                "fade-down",
+                "slide-left",
+                "slide-right",
+                "zoom",
+                "none"
+              ],
+              "type": "string"
+            },
+            "trigger": {
+              "enum": [
+                "load",
+                "visible"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "api": {
+          "description": "the api file to call (phoneSignIn: the auth.exchange api)",
+          "type": "string"
+        },
+        "ariaLabel": {
+          "type": "string"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "extra HTML attributes: data-*, aria-*, role, title, lang, dir, width, height, hidden, download (others are ignored)",
+          "type": "object"
+        },
+        "author": {
+          "type": "string"
+        },
+        "autofocus": {
+          "description": "search: put the cursor in the box when the screen opens",
+          "type": "boolean"
+        },
+        "autoplay": {
+          "type": "boolean"
+        },
+        "bind": {
+          "description": "take content from data: a field of the current item, or props.x, user.x, params.x, state.store.path",
+          "type": "string"
+        },
+        "binds": {
+          "additionalProperties": {
+            "description": "data path",
+            "type": "string"
+          },
+          "description": "bind attributes: {\"source\": \"image\", \"target\": \"slug\"}",
+          "type": "object"
+        },
+        "cells": {
+          "items": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": {}
+            },
+            "properties": {
+              "field": {
+                "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "format": {
+                "description": "markdown (text elements): the value is user-written Markdown, rendered safely (no HTML passes through)",
+                "enum": [
+                  "text",
+                  "number",
+                  "currency",
+                  "percent",
+                  "date",
+                  "datetime",
+                  "date-long",
+                  "date-short",
+                  "time",
+                  "markdown"
+                ],
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "field"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "chart": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "currency": {
+              "description": "ISO code for format currency",
+              "type": "string"
+            },
+            "format": {
+              "description": "how values are written in labels",
+              "enum": [
+                "number",
+                "currency",
+                "percent"
+              ],
+              "type": "string"
+            },
+            "height": {
+              "type": "integer"
+            },
+            "kind": {
+              "enum": [
+                "bar",
+                "line"
+              ],
+              "type": "string"
+            },
+            "scale": {
+              "description": "multiply each value for display, e.g. 0.01 to show cents as currency units",
+              "type": "number"
+            },
+            "x": {
+              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "y": {
+              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "x",
+            "y"
+          ],
+          "type": "object"
+        },
+        "className": {
+          "description": "extra CSS classes from your stylesheets (utility-framework syntax such as md:grid-cols-2 is allowed)",
+          "type": "string"
+        },
+        "collapse": {
+          "description": "navbar: what folds behind the menu button on small screens (default links)",
+          "enum": [
+            "links",
+            "all"
+          ],
+          "type": "string"
+        },
+        "collapseAt": {
+          "description": "navbar: the breakpoint below which it folds (default mobile)",
+          "enum": [
+            "mobile",
+            "tablet"
+          ],
+          "type": "string"
+        },
+        "columns": {
+          "anyOf": [
+            {
+              "description": "grid columns",
+              "maximum": 24,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "description": "CSS grid-template-columns",
+              "type": "string"
+            }
+          ]
+        },
+        "confirm": {
+          "description": "pay: the api that checks the payment on the server (it receives {id, provider, paymentId, signature, status}); the screen shows success only when it answers 2xx",
+          "type": "string"
+        },
+        "content": {
+          "description": "literal text, or an expression starting with = (\"=product.name\")",
+          "type": "string"
+        },
+        "controls": {
+          "type": "boolean"
+        },
+        "currency": {
+          "description": "ISO currency for format=currency",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "aggregate": {
+              "additionalProperties": false,
+              "description": "summarise in the database: one record per group with its measures; sort by a group or measure name",
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "groupBy": {
+                  "description": "fields (or date buckets) to group by; none = one row for everything matched",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "description": "a field to group by",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^x-": {}
+                        },
+                        "properties": {
+                          "as": {
+                            "description": "the name the group's value appears under (default: the field)",
+                            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                            "type": "string"
+                          },
+                          "bucket": {
+                            "description": "group a date/datetime by its local hour, day, week (Monday), month or year",
+                            "enum": [
+                              "hour",
+                              "day",
+                              "week",
+                              "month",
+                              "year"
+                            ],
+                            "type": "string"
+                          },
+                          "field": {
+                            "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "field"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "measures": {
+                  "additionalProperties": {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^x-": {}
+                    },
+                    "properties": {
+                      "avg": {
+                        "description": "average of a numeric field",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "count": {
+                        "description": "number of rows in the group",
+                        "type": "boolean"
+                      },
+                      "countDistinct": {
+                        "description": "number of different values of a field",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "max": {
+                        "description": "largest value",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "min": {
+                        "description": "smallest value",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "sum": {
+                        "description": "sum of a numeric field (0 for no rows)",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "times": {
+                        "description": "sum/avg: multiply by this numeric field first (quantity × unit cost)",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "named values computed per group: {\"revenue\": {\"sum\": \"total\"}, \"orders\": {\"count\": true}}",
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "as": {
+              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "cache": {
+              "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+              "pattern": "^[0-9]+(ms|s|m|h|d)$",
+              "type": "string"
+            },
+            "columns": {
+              "items": {
+                "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "filter": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "description": "a literal, or an expression starting with =",
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "description": "the field is empty",
+                    "type": "null"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^x-": {}
+                    },
+                    "properties": {
+                      "contains": {
+                        "type": "string"
+                      },
+                      "eq": {},
+                      "gt": {},
+                      "gte": {},
+                      "in": {
+                        "anyOf": [
+                          {
+                            "items": {},
+                            "type": "array"
+                          },
+                          {
+                            "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                            "pattern": "^=[^=]",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "lt": {},
+                      "lte": {},
+                      "ne": {},
+                      "param": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "props": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "query": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "user": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "when": {
+                        "description": "apply this condition only when the expression is truthy",
+                        "pattern": "^=[^=]",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "include": {
+              "additionalProperties": {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "properties": {
+                  "columns": {
+                    "items": {
+                      "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "field": {
+                    "description": "a relation field of this schema: attach the record it points to (default: the include's name)",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "filter": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "description": "a literal, or an expression starting with =",
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "description": "the field is empty",
+                          "type": "null"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "patternProperties": {
+                            "^x-": {}
+                          },
+                          "properties": {
+                            "contains": {
+                              "type": "string"
+                            },
+                            "eq": {},
+                            "gt": {},
+                            "gte": {},
+                            "in": {
+                              "anyOf": [
+                                {
+                                  "items": {},
+                                  "type": "array"
+                                },
+                                {
+                                  "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                                  "pattern": "^=[^=]",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "lt": {},
+                            "lte": {},
+                            "ne": {},
+                            "param": {
+                              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                              "type": "string"
+                            },
+                            "props": {
+                              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                              "type": "string"
+                            },
+                            "query": {
+                              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                              "type": "string"
+                            },
+                            "user": {
+                              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                              "type": "string"
+                            },
+                            "when": {
+                              "description": "apply this condition only when the expression is truthy",
+                              "pattern": "^=[^=]",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "type": "object"
+                  },
+                  "limit": {
+                    "description": "with source: at most this many per record",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "on": {
+                    "description": "with source: the related schema's field holding this record's id",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "sort": {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^x-": {}
+                    },
+                    "properties": {
+                      "field": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "order": {
+                        "enum": [
+                          "asc",
+                          "desc"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "field"
+                    ],
+                    "type": "object"
+                  },
+                  "source": {
+                    "description": "attach the records of this schema whose \"on\" field points back here",
+                    "pattern": "^DATABASE\\.[A-Za-z_][A-Za-z0-9_-]*$",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "description": "related records loaded with each record, one query per include: {\"category\": {}} or {\"reviews\": {\"source\": \"DATABASE.reviews\", \"on\": \"product\"}}",
+              "type": "object"
+            },
+            "items": {
+              "description": "inline records for STATIC sources",
+              "items": {},
+              "type": "array"
+            },
+            "limit": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "live": {
+              "description": "re-render when the underlying records change (server push)",
+              "type": "boolean"
+            },
+            "mode": {
+              "enum": [
+                "list",
+                "single"
+              ],
+              "type": "string"
+            },
+            "paginate": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "param": {
+                  "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                  "type": "string"
+                },
+                "size": {
+                  "maximum": 200,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "query": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "description": "a literal, or an expression starting with =",
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "description": "the field is empty",
+                    "type": "null"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^x-": {}
+                    },
+                    "properties": {
+                      "contains": {
+                        "type": "string"
+                      },
+                      "eq": {},
+                      "gt": {},
+                      "gte": {},
+                      "in": {
+                        "anyOf": [
+                          {
+                            "items": {},
+                            "type": "array"
+                          },
+                          {
+                            "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                            "pattern": "^=[^=]",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "lt": {},
+                      "lte": {},
+                      "ne": {},
+                      "param": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "props": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "query": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "user": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "when": {
+                        "description": "apply this condition only when the expression is truthy",
+                        "pattern": "^=[^=]",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              },
+              "description": "API sources: query values passed to the api (literals or {param|query|props} references)",
+              "type": "object"
+            },
+            "refresh": {
+              "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+              "pattern": "^[0-9]+(ms|s|m|h|d)$",
+              "type": "string"
+            },
+            "required": {
+              "description": "page data: when nothing matches, the page answers 404",
+              "type": "boolean"
+            },
+            "search": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "fields": {
+                  "items": {
+                    "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "param": {
+                  "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fields"
+              ],
+              "type": "object"
+            },
+            "sort": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "allow": {
+                  "description": "fields a sort expression may choose",
+                  "items": {
+                    "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "default": {
+                  "description": "the field used when the expression gives none (or one not allowed)",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                  "type": "string"
+                },
+                "field": {
+                  "anyOf": [
+                    {
+                      "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                      "type": "string"
+                    },
+                    {
+                      "description": "chooses the field at request time, e.g. \"=query.sort\"; needs \"allow\"",
+                      "pattern": "^=[^=]",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "order": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                      "pattern": "^=[^=]",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "field"
+              ],
+              "type": "object"
+            },
+            "source": {
+              "description": "sources are DATABASE.\u003cschema\u003e, API.\u003cname\u003e, STATIC, USER, STATE.\u003cstore\u003e.\u003clist\u003e or an expression giving a list (\"=product.images\")",
+              "pattern": "^(DATABASE\\.[A-Za-z_][A-Za-z0-9_-]*|API\\.[A-Za-z0-9_.-]+|STATIC|USER|STATE\\.[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*|=[^=].*)$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source"
+          ],
+          "type": "object"
+        },
+        "elements": {
+          "items": {
+            "$ref": "#/$defs/element"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "$ref": "#/$defs/element"
+        },
+        "error": {
+          "$ref": "#/$defs/element"
+        },
+        "fields": {
+          "additionalProperties": {
+            "description": "field of the current item",
+            "type": "string"
+          },
+          "description": "card mapping: title, subtitle, text, price, image, badge, link",
+          "type": "object"
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none"
+          ],
+          "type": "string"
+        },
+        "format": {
+          "description": "markdown (text elements): the value is user-written Markdown, rendered safely (no HTML passes through)",
+          "enum": [
+            "text",
+            "number",
+            "currency",
+            "percent",
+            "date",
+            "datetime",
+            "date-long",
+            "date-short",
+            "time",
+            "markdown"
+          ],
+          "type": "string"
+        },
+        "gap": {
+          "type": "string"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "description": "ids are letters, digits, '-' and '_'",
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+              "type": "string"
+            },
+            {
+              "description": "an expression giving the id, for elements repeated per record (\"='sheet-' + id\"); characters other than letters, digits, '-' and '_' are dropped",
+              "pattern": "^=[^=]",
+              "type": "string"
+            }
+          ]
+        },
+        "inputs": {
+          "items": {
+            "$ref": "#/$defs/input"
+          },
+          "type": "array"
+        },
+        "instant": {
+          "description": "search: search again as the visitor types (debounced; the results screen is patched in place and the box keeps focus)",
+          "type": "boolean"
+        },
+        "interval": {
+          "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+          "pattern": "^[0-9]+(ms|s|m|h|d)$",
+          "type": "string"
+        },
+        "item": {
+          "$ref": "#/$defs/element"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        },
+        "layout": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "align": {
+              "enum": [
+                "start",
+                "center",
+                "end",
+                "stretch",
+                "baseline"
+              ],
+              "type": "string"
+            },
+            "direction": {
+              "enum": [
+                "row",
+                "column",
+                "row-reverse",
+                "column-reverse"
+              ],
+              "type": "string"
+            },
+            "gap": {
+              "type": "string"
+            },
+            "justify": {
+              "enum": [
+                "start",
+                "center",
+                "end",
+                "between",
+                "around",
+                "evenly"
+              ],
+              "type": "string"
+            },
+            "wrap": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "loading": {
+          "description": "image: lazy (default) waits until it nears the screen; eager loads at once; priority also asks for it first — use it for the picture people see first (often the largest paint)",
+          "enum": [
+            "lazy",
+            "eager",
+            "priority"
+          ],
+          "type": "string"
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "mutation": {
+          "description": "identifiers use letters, digits and '_' and do not start with a digit",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "muted": {
+          "type": "boolean"
+        },
+        "name": {
+          "description": "icon name; search: the query parameter (default q)",
+          "type": "string"
+        },
+        "newTab": {
+          "type": "boolean"
+        },
+        "open": {
+          "description": "accordion/details: start open",
+          "type": "boolean"
+        },
+        "opensOn": {
+          "description": "dropdown/navbar: how menus open (hover falls back to click on touch screens)",
+          "enum": [
+            "click",
+            "hover"
+          ],
+          "type": "string"
+        },
+        "placeholder": {
+          "description": "search: the hint inside the box",
+          "type": "string"
+        },
+        "platforms": {
+          "description": "the platforms this is built for, e.g. [\"web\"]; omitted: every platform",
+          "items": {
+            "enum": [
+              "web",
+              "android",
+              "ios"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "poster": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "props": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "rating": {
+          "type": "number"
+        },
+        "ratio": {
+          "description": "ratios look like 16/9",
+          "pattern": "^[0-9]+(\\.[0-9]+)?/[0-9]+(\\.[0-9]+)?$",
+          "type": "string"
+        },
+        "responsive": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "description": "CSS properties in camelCase or kebab-case, e.g. {\"padding\": \"80px\"}",
+            "type": "object"
+          },
+          "description": "per-breakpoint styles: {\"mobile\": {\"padding\": \"24px\"}}",
+          "type": "object"
+        },
+        "responsiveColumns": {
+          "additionalProperties": {
+            "maximum": 24,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "description": "grid columns per breakpoint",
+          "type": "object"
+        },
+        "side": {
+          "enum": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "type": "string"
+        },
+        "slot": {
+          "description": "in a component: the prop holding child elements",
+          "type": "string"
+        },
+        "source": {
+          "description": "image/video/audio/svg URL or assets path",
+          "type": "string"
+        },
+        "states": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "active": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "description": "CSS properties in camelCase or kebab-case, e.g. {\"padding\": \"80px\"}",
+              "type": "object"
+            },
+            "focus": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "description": "CSS properties in camelCase or kebab-case, e.g. {\"padding\": \"80px\"}",
+              "type": "object"
+            },
+            "hover": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "description": "CSS properties in camelCase or kebab-case, e.g. {\"padding\": \"80px\"}",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "store": {
+          "description": "state store for action=state",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "style": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "description": "CSS properties in camelCase or kebab-case, e.g. {\"padding\": \"80px\"}",
+          "type": "object"
+        },
+        "styleSource": {
+          "description": "a stylesheet to load with this element",
+          "type": "string"
+        },
+        "submit": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "api": {
+              "description": "the api file the form posts to",
+              "type": "string"
+            },
+            "className": {
+              "description": "CSS classes for the submit button; they replace its variant styling",
+              "type": "string"
+            },
+            "include": {
+              "items": {
+                "description": "include state as STATE.store or STATE.store.path",
+                "pattern": "^STATE\\.[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "label": {
+              "type": "string"
+            },
+            "streamInto": {
+              "description": "a streaming api (\"stream\": true): the id of the element the reply's text is written into as it arrives",
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+              "type": "string"
+            },
+            "success": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "mutation": {
+                  "description": "store.mutation to run, e.g. cart.clear",
+                  "type": "string"
+                },
+                "navigate": {
+                  "type": "string"
+                },
+                "redirect": {
+                  "description": "a response field holding the URL to go to: a path on this site, or an address on a declared service's origin",
+                  "type": "string"
+                },
+                "reload": {
+                  "description": "re-render the screen in place, keeping scroll, focus and open dialogs",
+                  "type": "boolean"
+                },
+                "reset": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "api"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "additionalProperties": false,
+          "description": "api buttons: what happens after a 2xx answer",
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "message": {
+              "description": "the confirmation shown (default \"Done\"; none when reloading)",
+              "type": "string"
+            },
+            "mutation": {
+              "description": "store.mutation to run, e.g. cart.clear",
+              "type": "string"
+            },
+            "navigate": {
+              "description": "a path to go to",
+              "type": "string"
+            },
+            "reload": {
+              "description": "re-render the screen in place, keeping scroll, focus and open dialogs",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "tabs": {
+          "items": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": {}
+            },
+            "properties": {
+              "elements": {
+                "items": {
+                  "$ref": "#/$defs/element"
+                },
+                "type": "array"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "tag": {
+          "description": "the HTML tag a container or text element renders as, e.g. \"ul\", \"li\", \"article\", \"figure\"",
+          "enum": [
+            "div",
+            "span",
+            "p",
+            "section",
+            "article",
+            "aside",
+            "header",
+            "footer",
+            "nav",
+            "main",
+            "figure",
+            "figcaption",
+            "ul",
+            "ol",
+            "li",
+            "dl",
+            "dt",
+            "dd",
+            "blockquote",
+            "address",
+            "time",
+            "small",
+            "strong",
+            "em",
+            "b",
+            "i",
+            "s",
+            "u",
+            "mark",
+            "cite",
+            "q",
+            "abbr",
+            "sub",
+            "sup",
+            "del",
+            "ins",
+            "code",
+            "pre",
+            "kbd",
+            "label",
+            "hgroup",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "details",
+            "summary",
+            "button"
+          ],
+          "type": "string"
+        },
+        "target": {
+          "description": "route, element id, or URL",
+          "type": "string"
+        },
+        "transition": {
+          "description": "CSS transition, e.g. \"all 200ms ease\"",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "container",
+            "section",
+            "box",
+            "row",
+            "column",
+            "grid",
+            "stack",
+            "spacer",
+            "divider",
+            "header",
+            "footer",
+            "nav",
+            "navbar",
+            "sidebar",
+            "main",
+            "aside",
+            "text",
+            "image",
+            "video",
+            "audio",
+            "svg",
+            "icon",
+            "placeholder",
+            "button",
+            "link",
+            "badge",
+            "card",
+            "list",
+            "table",
+            "form",
+            "review",
+            "rating",
+            "dropdown",
+            "modal",
+            "drawer",
+            "tabs",
+            "accordion",
+            "carousel",
+            "slider",
+            "chart",
+            "slot",
+            "component",
+            "phoneSignIn",
+            "search",
+            "widget"
+          ],
+          "type": "string"
+        },
+        "use": {
+          "description": "component: the component file to render; widget: the widget file",
+          "type": "string"
+        },
+        "value": {
+          "description": "value passed to a state mutation; strings starting with item. or props. are bound"
+        },
+        "variant": {
+          "description": "text: heading, h1-h6, subheading, paragraph, caption, label, quote, code; button: primary, secondary, ghost",
+          "type": "string"
+        },
+        "vars": {
+          "additionalProperties": {
+            "description": "a value or an expression (\"=color\")",
+            "type": "string"
+          },
+          "description": "CSS custom properties set from data, per record: {\"--accent\": \"=color\", \"--progress\": \"=concat(pct, '%')\"}; your stylesheet uses var(--accent)",
+          "type": "object"
+        },
+        "visible": {
+          "anyOf": [
+            {
+              "description": "an expression starting with = (\"=product.stock \u003e 0\"); the element renders only when it is truthy",
+              "pattern": "^=[^=]",
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "auth": {
+                  "enum": [
+                    "signed-in",
+                    "signed-out"
+                  ],
+                  "type": "string"
+                },
+                "roles": {
+                  "items": {
+                    "description": "role name",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "when": {
+                  "description": "an expression starting with =; the element renders only when it is truthy",
+                  "pattern": "^=[^=]",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "field": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "default": {},
+        "description": {
+          "type": "string"
+        },
+        "enum": {
+          "items": {},
+          "type": "array"
+        },
+        "example": {
+          "description": "an example value shown in the API documentation (never used as a value)"
+        },
+        "fields": {
+          "additionalProperties": {
+            "$ref": "#/$defs/field"
+          },
+          "type": "object"
+        },
+        "items": {
+          "$ref": "#/$defs/field"
+        },
+        "max": {
+          "description": "maximum value",
+          "type": "number"
+        },
+        "maxItems": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "min": {
+          "description": "minimum value",
+          "type": "number"
+        },
+        "minItems": {
+          "type": "integer"
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "nullable": {
+          "description": "accept an explicit null: an optional field is cleared, a required one may be sent as null",
+          "type": "boolean"
+        },
+        "pattern": {
+          "description": "regular expression the value must match",
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "trim": {
+          "description": "trim surrounding whitespace (default true for strings)",
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "email",
+            "url",
+            "date",
+            "datetime",
+            "object",
+            "array",
+            "any"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "input": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "accept": {
+          "type": "string"
+        },
+        "autocomplete": {
+          "type": "string"
+        },
+        "className": {
+          "description": "CSS classes on the control itself (input, select or textarea)",
+          "type": "string"
+        },
+        "hint": {
+          "description": "a short help line shown under the field (read by screen readers with it); may be an expression",
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "max": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "name": {
+          "description": "identifiers use letters, digits and '_' and do not start with a digit",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "options": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "description": "For a radio: shows the options as clickable cards",
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "optionsFrom": {
+          "additionalProperties": false,
+          "description": "select/radio: options from data, after any static options",
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "description": {
+              "description": "radio: the field shown under each option",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "filter": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "description": "a literal, or an expression starting with =",
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "description": "the field is empty",
+                    "type": "null"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "patternProperties": {
+                      "^x-": {}
+                    },
+                    "properties": {
+                      "contains": {
+                        "type": "string"
+                      },
+                      "eq": {},
+                      "gt": {},
+                      "gte": {},
+                      "in": {
+                        "anyOf": [
+                          {
+                            "items": {},
+                            "type": "array"
+                          },
+                          {
+                            "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                            "pattern": "^=[^=]",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "lt": {},
+                      "lte": {},
+                      "ne": {},
+                      "param": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "props": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "query": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "user": {
+                        "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                        "type": "string"
+                      },
+                      "when": {
+                        "description": "apply this condition only when the expression is truthy",
+                        "pattern": "^=[^=]",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "image": {
+              "description": "radio: the field holding each option's picture (the options become cards)",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "label": {
+              "description": "the field shown",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "limit": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "sort": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x-": {}
+              },
+              "properties": {
+                "allow": {
+                  "description": "fields a sort expression may choose",
+                  "items": {
+                    "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "default": {
+                  "description": "the field used when the expression gives none (or one not allowed)",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                  "type": "string"
+                },
+                "field": {
+                  "anyOf": [
+                    {
+                      "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                      "type": "string"
+                    },
+                    {
+                      "description": "chooses the field at request time, e.g. \"=query.sort\"; needs \"allow\"",
+                      "pattern": "^=[^=]",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "order": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                      "pattern": "^=[^=]",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "field"
+              ],
+              "type": "object"
+            },
+            "source": {
+              "description": "DATABASE.\u003cname\u003e, API.\u003cname\u003e or an expression",
+              "type": "string"
+            },
+            "value": {
+              "description": "the field sent (default id)",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source",
+            "label"
+          ],
+          "type": "object"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "props": {
+          "additionalProperties": {},
+          "description": "widget inputs: the widget's props",
+          "type": "object"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "step": {
+          "description": "number inputs: the increment; 0.01 (or any) accepts amounts with decimals",
+          "pattern": "^(any|[0-9]+(\\.[0-9]+)?)$",
+          "type": "string"
+        },
+        "type": {
+          "description": "location: a button that reads the device position and sends {lat, lng, accuracy}; image: an upload button that stores the picked picture through the \"upload\" api and sends its url; widget: a custom control (use) whose value is sent",
+          "enum": [
+            "text",
+            "email",
+            "password",
+            "number",
+            "tel",
+            "url",
+            "textarea",
+            "select",
+            "checkbox",
+            "radio",
+            "date",
+            "file",
+            "image",
+            "hidden",
+            "location",
+            "widget"
+          ],
+          "type": "string"
+        },
+        "upload": {
+          "description": "image inputs: the storage.upload api the picked file is sent to",
+          "type": "string"
+        },
+        "use": {
+          "description": "widget inputs: the widget file",
+          "type": "string"
+        },
+        "value": {}
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "item": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "elements": {
+          "items": {
+            "$ref": "#/$defs/element"
+          },
+          "type": "array"
+        },
+        "items": {
+          "description": "a submenu: nested items open as a dropdown",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        },
+        "newTab": {
+          "type": "boolean"
+        },
+        "rating": {
+          "type": "number"
+        },
+        "target": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "step": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "action": {
+          "description": "callAction: the action file to run, inside this action's transaction; its result is stored in as",
+          "type": "string"
+        },
+        "append": {
+          "description": "set: append this value to the list named by as"
+        },
+        "as": {
+          "description": "identifiers use letters, digits and '_' and do not start with a digit",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "condition": {
+          "description": "an expression",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": {},
+          "description": "push: extra key/values delivered to the app",
+          "type": "object"
+        },
+        "delay": {
+          "description": "durations look like 500ms, 30s, 5m, 1h or 7d",
+          "pattern": "^[0-9]+(ms|s|m|h|d)$",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "else": {
+          "description": "if: the steps run when it is false",
+          "items": {
+            "$ref": "#/$defs/step"
+          },
+          "type": "array"
+        },
+        "error": {
+          "description": "message when this step fails",
+          "type": "string"
+        },
+        "event": {
+          "description": "event file",
+          "type": "string"
+        },
+        "expect": {
+          "description": "rows that must be affected, else the step fails",
+          "type": "integer"
+        },
+        "groupBy": {
+          "description": "aggregate: fields or date buckets to group by; without it the step gives one record",
+          "items": {
+            "anyOf": [
+              {
+                "description": "a field to group by",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^x-": {}
+                },
+                "properties": {
+                  "as": {
+                    "description": "the name the group's value appears under (default: the field)",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  },
+                  "bucket": {
+                    "description": "group a date/datetime by its local hour, day, week (Monday), month or year",
+                    "enum": [
+                      "hour",
+                      "day",
+                      "week",
+                      "month",
+                      "year"
+                    ],
+                    "type": "string"
+                  },
+                  "field": {
+                    "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "field"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "id": {
+          "description": "a label for logs and errors",
+          "type": "string"
+        },
+        "increment": {
+          "additionalProperties": {},
+          "description": "atomic numeric adjustments: {\"stock\": \"=-line.quantity\"}",
+          "type": "object"
+        },
+        "input": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "integration": {
+          "description": "call: the integration file (integrations/\u003cname\u003e.integration.iwc, added with iwc add)",
+          "type": "string"
+        },
+        "items": {
+          "description": "an expression yielding a list",
+          "type": "string"
+        },
+        "job": {
+          "description": "job file",
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "measures": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": {}
+            },
+            "properties": {
+              "avg": {
+                "description": "average of a numeric field",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "count": {
+                "description": "number of rows in the group",
+                "type": "boolean"
+              },
+              "countDistinct": {
+                "description": "number of different values of a field",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "max": {
+                "description": "largest value",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "min": {
+                "description": "smallest value",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "sum": {
+                "description": "sum of a numeric field (0 for no rows)",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "times": {
+                "description": "sum/avg: multiply by this numeric field first (quantity × unit cost)",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "description": "named values computed per group: {\"revenue\": {\"sum\": \"total\"}, \"orders\": {\"count\": true}}",
+          "type": "object"
+        },
+        "method": {
+          "description": "call: the service or integration method",
+          "type": "string"
+        },
+        "offset": {
+          "anyOf": [
+            {
+              "maximum": 1000000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+              "pattern": "^=[^=]",
+              "type": "string"
+            }
+          ],
+          "description": "query: rows to skip, e.g. \"=(input.page - 1) * 24\""
+        },
+        "operation": {
+          "enum": [
+            "validate",
+            "require",
+            "find",
+            "query",
+            "create",
+            "update",
+            "delete",
+            "set",
+            "forEach",
+            "call",
+            "emit",
+            "enqueue",
+            "notify",
+            "transition",
+            "return",
+            "if",
+            "callAction",
+            "aggregate",
+            "createMany",
+            "push"
+          ],
+          "type": "string"
+        },
+        "path": {
+          "description": "push: the screen a tap opens, e.g. \"=concat('/orders/', order.id)\"",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "platform": {
+          "description": "push: only this platform's devices",
+          "enum": [
+            "web",
+            "android",
+            "ios"
+          ],
+          "type": "string"
+        },
+        "required": {
+          "description": "find: fail when no record matches",
+          "type": "boolean"
+        },
+        "resource": {
+          "description": "schema file",
+          "type": "string"
+        },
+        "sensitive": {
+          "description": "find/query: sensitive fields this step may read (server-side only; an action decides what of it to return)",
+          "items": {
+            "description": "identifiers use letters, digits and '_' and do not start with a digit",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "service": {
+          "description": "call: the service file",
+          "type": "string"
+        },
+        "sort": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": {}
+          },
+          "properties": {
+            "allow": {
+              "description": "fields a sort expression may choose",
+              "items": {
+                "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "default": {
+              "description": "the field used when the expression gives none (or one not allowed)",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "field": {
+              "anyOf": [
+                {
+                  "description": "identifiers use letters, digits and '_' and do not start with a digit",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+                  "type": "string"
+                },
+                {
+                  "description": "chooses the field at request time, e.g. \"=query.sort\"; needs \"allow\"",
+                  "pattern": "^=[^=]",
+                  "type": "string"
+                }
+              ]
+            },
+            "order": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "description": "an expression starting with =, e.g. \"=product.price * 2\"",
+                  "pattern": "^=[^=]",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "field"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "description": "HTTP status for require/find failures",
+          "maximum": 599,
+          "minimum": 400,
+          "type": "integer"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/step"
+          },
+          "type": "array"
+        },
+        "stream": {
+          "description": "call: send the method's progress (AI text as it is written) to the caller of a streaming api (\"stream\": true)",
+          "type": "boolean"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "then": {
+          "description": "if: the steps run when the condition is true",
+          "items": {
+            "$ref": "#/$defs/step"
+          },
+          "type": "array"
+        },
+        "title": {
+          "description": "push: the notification's title",
+          "type": "string"
+        },
+        "to": {
+          "description": "notify: recipient expression; push: a user id, a list of user ids, or \"all\" (every registered device)"
+        },
+        "token": {
+          "description": "push: one device's token instead of to",
+          "type": "string"
+        },
+        "total": {
+          "description": "query: also store the number of matching rows (ignoring limit and offset) under this name",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "transition": {
+          "type": "string"
+        },
+        "value": {
+          "description": "an expression or value"
+        },
+        "values": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "where": {
+          "additionalProperties": {},
+          "type": "object"
+        },
+        "workflow": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "access": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "create": {
+          "anyOf": [
+            {
+              "enum": [
+                "public",
+                "auth",
+                "owner",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "any of: roles, owner, self, perm:\u003cpermission\u003e, scope:\u003cscope\u003e",
+              "items": {
+                "description": "a role; \"owner\"; \"self\" (user schema: the caller's own row); \"perm:\u003cpermission\u003e\"; or \"scope:\u003cscope\u003e\" (rows in the caller's scope)",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "delete": {
+          "anyOf": [
+            {
+              "enum": [
+                "public",
+                "auth",
+                "owner",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "any of: roles, owner, self, perm:\u003cpermission\u003e, scope:\u003cscope\u003e",
+              "items": {
+                "description": "a role; \"owner\"; \"self\" (user schema: the caller's own row); \"perm:\u003cpermission\u003e\"; or \"scope:\u003cscope\u003e\" (rows in the caller's scope)",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "read": {
+          "anyOf": [
+            {
+              "enum": [
+                "public",
+                "auth",
+                "owner",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "any of: roles, owner, self, perm:\u003cpermission\u003e, scope:\u003cscope\u003e",
+              "items": {
+                "description": "a role; \"owner\"; \"self\" (user schema: the caller's own row); \"perm:\u003cpermission\u003e\"; or \"scope:\u003cscope\u003e\" (rows in the caller's scope)",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "update": {
+          "anyOf": [
+            {
+              "enum": [
+                "public",
+                "auth",
+                "owner",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "any of: roles, owner, self, perm:\u003cpermission\u003e, scope:\u003cscope\u003e",
+              "items": {
+                "description": "a role; \"owner\"; \"self\" (user schema: the caller's own row); \"perm:\u003cpermission\u003e\"; or \"scope:\u003cscope\u003e\" (rows in the caller's scope)",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fields": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^x-": {}
+        },
+        "properties": {
+          "accept": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "default": {
+            "description": "a literal, or \"now\" for datetimes"
+          },
+          "description": {
+            "type": "string"
+          },
+          "encrypted": {
+            "description": "stored encrypted at rest (AES-256-GCM, key IWC_ENCRYPTION_KEY); can't be filtered, sorted, searched, indexed or unique",
+            "type": "boolean"
+          },
+          "index": {
+            "type": "boolean"
+          },
+          "max": {
+            "type": "number"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "maxSize": {
+            "description": "sizes look like 512KB or 5MB",
+            "pattern": "^[0-9]+(KB|MB)$",
+            "type": "string"
+          },
+          "min": {
+            "type": "number"
+          },
+          "minLength": {
+            "type": "integer"
+          },
+          "onDelete": {
+            "enum": [
+              "cascade",
+              "restrict",
+              "set null"
+            ],
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "sensitive": {
+            "description": "never sent to browsers or API responses",
+            "type": "boolean"
+          },
+          "to": {
+            "description": "the schema file a relation points to",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "string",
+              "text",
+              "integer",
+              "number",
+              "boolean",
+              "email",
+              "url",
+              "password",
+              "date",
+              "datetime",
+              "json",
+              "enum",
+              "relation",
+              "file"
+            ],
+            "type": "string"
+          },
+          "unique": {
+            "type": "boolean"
+          },
+          "values": {
+            "description": "allowed values for type=enum",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      },
+      "type": "object"
+    },
+    "indexes": {
+      "items": {
+        "items": {
+          "description": "identifiers use letters, digits and '_' and do not start with a digit",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "identifiers use letters, digits and '_' and do not start with a digit",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+      "type": "string"
+    },
+    "owner": {
+      "description": "relation field set to the signed-in user on create; enables access \"owner\"",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+      "type": "string"
+    },
+    "partialUnique": {
+      "description": "unique only among rows that meet the conditions, e.g. one active assignment per order: {\"fields\": [\"order\"], \"where\": {\"status\": {\"in\": [\"offered\", \"accepted\"]}}}",
+      "items": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^x-": {}
+        },
+        "properties": {
+          "fields": {
+            "items": {
+              "description": "identifiers use letters, digits and '_' and do not start with a digit",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "where": {
+            "additionalProperties": {
+              "description": "a literal value, {\"in\": [...]}, {\"ne\": value}, or null"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "fields",
+          "where"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "scopes": {
+      "additionalProperties": {
+        "description": "the field holding the scoped id (a relation to the scope's target schema), or id for the target schema itself",
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+        "type": "string"
+      },
+      "description": "which field each scope (security.iwc \"scopes\") filters on, e.g. {\"store\": \"store\"}; access rules then accept \"scope:store\"",
+      "type": "object"
+    },
+    "seed": {
+      "description": "rows inserted into empty development databases and tests",
+      "items": {
+        "additionalProperties": {},
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "seedInProduction": {
+      "description": "also insert the seed rows into an empty production table: for reference data that is part of the app (categories, a catalogue), never for test users",
+      "type": "boolean"
+    },
+    "table": {
+      "description": "table name (default: name pluralised)",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+      "type": "string"
+    },
+    "tenant": {
+      "description": "scope every row to the user's tenant (needs app.tenancy)",
+      "type": "boolean"
+    },
+    "timestamps": {
+      "description": "add createdAt/updatedAt (default true)",
+      "type": "boolean"
+    },
+    "unique": {
+      "description": "composite unique constraints",
+      "items": {
+        "items": {
+          "description": "identifiers use letters, digits and '_' and do not start with a digit",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,62}$",
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "fields"
+  ],
+  "title": "IWC schema",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "login",
+  "method": "POST",
+  "path": "/auth/login",
+  "operation": "auth.login",
+  "request": {
+    "payload": {
+      "email": { "type": "email", "required": true },
+      "password": { "type": "string", "required": true, "maxLength": 200 }
+    }
+  },
+  "response": { "fields": { "success": "boolean", "user": "object" } }
+}

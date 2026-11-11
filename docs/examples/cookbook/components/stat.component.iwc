@@ -1,0 +1,15 @@
+{
+  "name": "Stat",
+  "props": {
+    "label": { "type": "string", "required": true },
+    "value": { "type": "string", "required": true }
+  },
+  "root": {
+    "type": "column", "className": "stat", "layout": { "direction": "column", "gap": "4px" },
+    "elements": [
+      { "type": "text", "variant": "caption", "bind": "props.label", "className": "muted" },
+      { "type": "text", "variant": "h3", "bind": "props.value" },
+      { "type": "slot" }
+    ]
+  }
+}

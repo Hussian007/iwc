@@ -1,0 +1,13 @@
+{
+  "name": "order",
+  "fields": {
+    "customer": { "type": "relation", "to": "user.schema.iwc", "required": true },
+    "items": { "type": "json", "required": true },
+    "total": { "type": "number", "required": true, "min": 0 },
+    "email": { "type": "email", "required": true },
+    "address": { "type": "string", "required": true, "maxLength": 200 },
+    "status": { "type": "enum", "values": ["placed", "shipped"], "default": "placed", "required": true }
+  },
+  "owner": "customer",
+  "access": { "read": ["admin", "owner"], "create": "none", "update": "none", "delete": "none" }
+}

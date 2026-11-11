@@ -1,0 +1,68 @@
+{
+  "name": "Dashboard",
+  "route": "/dashboard",
+  "layout": "dashboard.layout.iwc",
+  "auth": "required",
+  "title": "Dashboard",
+  "sections": [
+    {
+      "type": "section", "className": "dash", "layout": { "direction": "column", "gap": "24px" },
+      "elements": [
+        { "type": "text", "variant": "h1", "bind": "user.name", "prefix": "Welcome, " },
+        {
+          "type": "grid", "columns": 3, "responsiveColumns": { "mobile": 1 }, "gap": "16px",
+          "elements": [
+            { "type": "component", "use": "stat.component.iwc", "props": { "label": "Signed in as", "value": "member" } },
+            { "type": "component", "use": "stat.component.iwc", "props": { "label": "Cart", "value": "items in your cart" }, "elements": [{ "type": "text", "variant": "h3", "bind": "state.cart.count" }] },
+            { "type": "component", "use": "stat.component.iwc", "props": { "label": "Plan", "value": "Free" } }
+          ]
+        },
+        {
+          "type": "column", "className": "panel", "visible": { "roles": ["admin"] },
+          "elements": [
+            { "type": "text", "variant": "h3", "content": "Stock by product (admins only)" },
+            { "type": "chart", "chart": { "kind": "bar", "x": "name", "y": "stock", "height": 200 }, "data": { "source": "DATABASE.products", "columns": ["name", "stock"], "sort": { "field": "name" }, "live": true } }
+          ]
+        },
+        {
+          "type": "row", "layout": { "gap": "24px", "align": "start" }, "responsive": { "tablet": { "flexDirection": "column" } },
+          "elements": [
+            {
+              "type": "column", "className": "panel grow",
+              "elements": [
+                { "type": "text", "variant": "h3", "content": "Your notes" },
+                {
+                  "type": "stack", "layout": { "direction": "column", "gap": "8px" },
+                  "data": { "source": "DATABASE.notes", "columns": ["title", "body", "createdAt"], "sort": { "field": "createdAt", "order": "desc" }, "live": true },
+                  "item": {
+                    "type": "row", "className": "note", "layout": { "align": "center", "gap": "12px" },
+                    "elements": [
+                      { "type": "column", "className": "grow", "elements": [{ "type": "text", "variant": "label", "bind": "title" }, { "type": "text", "variant": "caption", "className": "muted", "bind": "body" }] },
+                      { "type": "button", "label": "Edit", "variant": "ghost", "action": "navigate", "target": "/notes/:id" },
+                      { "type": "button", "label": "Delete", "variant": "ghost", "action": "api", "api": "note-delete.api.iwc", "target": "/dashboard" }
+                    ]
+                  },
+                  "empty": { "type": "text", "className": "muted", "content": "No notes yet — add one." }
+                }
+              ]
+            },
+            {
+              "type": "column", "className": "panel",
+              "elements": [
+                { "type": "text", "variant": "h3", "content": "New note" },
+                {
+                  "type": "form",
+                  "inputs": [
+                    { "name": "title", "type": "text", "label": "Title", "required": true },
+                    { "name": "body", "type": "textarea", "label": "Note" }
+                  ],
+                  "submit": { "api": "note-create.api.iwc", "label": "Save note", "success": { "message": "Saved.", "reset": true } }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

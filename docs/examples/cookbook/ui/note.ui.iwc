@@ -1,0 +1,26 @@
+{
+  "name": "Edit note",
+  "route": "/notes/:id",
+  "layout": "dashboard.layout.iwc",
+  "auth": "required",
+  "title": "Edit note",
+  "sections": [
+    {
+      "type": "section", "className": "dash narrow",
+      "data": { "source": "DATABASE.notes", "mode": "single", "columns": ["title", "body"], "filter": { "id": { "param": "id" } } },
+      "elements": [
+        { "type": "link", "label": "← Dashboard", "target": "/dashboard" },
+        { "type": "text", "variant": "h1", "content": "Edit note" },
+        {
+          "type": "form",
+          "inputs": [
+            { "name": "title", "type": "text", "label": "Title", "required": true, "value": "item.title" },
+            { "name": "body", "type": "textarea", "label": "Note", "value": "item.body" }
+          ],
+          "submit": { "api": "note-update.api.iwc", "label": "Save changes", "success": { "navigate": "/dashboard" } }
+        }
+      ],
+      "empty": { "type": "text", "content": "That note doesn't exist, or isn't yours." }
+    }
+  ]
+}

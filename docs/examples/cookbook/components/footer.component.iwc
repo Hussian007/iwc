@@ -1,0 +1,8 @@
+{
+  "name": "Footer",
+  "root": {
+    "type": "footer",
+    "className": "site-footer",
+    "elements": [{ "type": "text", "variant": "caption", "content": "Built with IWC — every page of this site is JSON." }]
+  }
+}

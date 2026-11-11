@@ -1,0 +1,12 @@
+{
+  "name": "user",
+  "fields": {
+    "name": { "type": "string", "required": true, "maxLength": 80 },
+    "email": { "type": "email", "required": true, "unique": true },
+    "password": { "type": "password", "required": true },
+    "role": { "type": "enum", "values": ["member", "admin"], "default": "member", "required": true }
+  },
+  "seed": [
+    { "id": "u-ada", "name": "Ada Lovelace", "email": "ada@example.com", "password": "ada-pass-123", "role": "admin" }
+  ]
+}

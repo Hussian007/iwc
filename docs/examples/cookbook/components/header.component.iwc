@@ -1,0 +1,37 @@
+{
+  "name": "Header",
+  "root": {
+    "type": "navbar",
+    "className": "site-header",
+    "collapseAt": "mobile",
+    "elements": [
+      { "type": "link", "label": "Cookbook", "target": "/", "className": "brand" },
+      {
+        "type": "row", "className": "header-actions", "layout": { "align": "center", "gap": "16px" },
+        "elements": [
+          { "type": "link", "label": "Sign in", "target": "/login", "visible": { "auth": "signed-out" } },
+          { "type": "link", "label": "Dashboard", "target": "/dashboard", "visible": { "auth": "signed-in" } },
+          { "type": "button", "label": "Sign out", "variant": "ghost", "action": "logout", "target": "/", "visible": { "auth": "signed-in" } },
+          {
+            "type": "link", "target": "/cart", "ariaLabel": "Cart", "className": "cart-link",
+            "elements": [
+              { "type": "icon", "name": "cart" },
+              { "type": "text", "variant": "span", "bind": "state.cart.count", "className": "count" }
+            ]
+          }
+        ]
+      }
+    ],
+    "items": [
+      {
+        "label": "Shop",
+        "items": [
+          { "label": "Everything", "target": "/products" },
+          { "label": "Home", "target": "/products?kind=home" },
+          { "label": "Office", "target": "/products?kind=office" }
+        ]
+      },
+      { "label": "API demo", "target": "/api-demo" }
+    ]
+  }
+}

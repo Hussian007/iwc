@@ -1,0 +1,15 @@
+{
+  "name": "createNote",
+  "method": "POST",
+  "path": "/notes",
+  "operation": "db.create",
+  "resource": "note.schema.iwc",
+  "request": {
+    "payload": {
+      "title": { "type": "string", "required": true, "minLength": 2, "maxLength": 120 },
+      "body": { "type": "string", "maxLength": 2000 }
+    }
+  },
+  "response": { "status": 201, "fields": { "id": "string", "title": "string" } },
+  "security": { "auth": true }
+}

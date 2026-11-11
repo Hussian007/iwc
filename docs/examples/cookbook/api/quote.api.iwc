@@ -1,0 +1,10 @@
+{
+  "name": "quote",
+  "method": "GET",
+  "path": "/quote",
+  "description": "Today's quote, fetched from an external service through an action.",
+  "action": "get-quote.action.iwc",
+  "request": { "query": { "topic": { "type": "string", "enum": ["craft", "design"], "default": "craft" } } },
+  "response": { "fields": { "text": "string", "author": "string", "topic": "string" } },
+  "cache": "1m"
+}

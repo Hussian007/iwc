@@ -1,0 +1,8 @@
+{
+  "name": "AuthLayout",
+  "className": "auth-shell",
+  "slots": {
+    "brand": { "type": "link", "label": "Cookbook", "target": "/", "className": "brand" },
+    "content": "PAGE_CONTENT"
+  }
+}

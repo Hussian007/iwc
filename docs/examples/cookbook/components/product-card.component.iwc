@@ -1,0 +1,21 @@
+{
+  "name": "ProductCard",
+  "props": {
+    "product": { "type": "object", "required": true, "description": "a product record: id, name, slug, price, image" },
+    "cta": { "type": "string", "default": "Add to cart" }
+  },
+  "root": {
+    "type": "card",
+    "className": "product-card",
+    "fields": { "title": "props.product.name", "price": "props.product.price", "image": "props.product.image", "link": "/products/:product.slug" },
+    "states": { "hover": { "transform": "translateY(-3px)" } },
+    "transition": "transform 160ms ease",
+    "elements": [
+      {
+        "type": "button", "bind": "props.cta", "variant": "secondary",
+        "action": "state", "store": "cart", "mutation": "add",
+        "value": { "id": "props.product.id", "slug": "props.product.slug", "name": "props.product.name", "price": "props.product.price", "image": "props.product.image", "quantity": 1 }
+      }
+    ]
+  }
+}
